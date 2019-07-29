@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import './Author.css';
+//importing store along with action types that we need for this component
+import store, {FIRST_NAME, LAST_NAME} from './../../store.js'
 
 class Author extends Component {
   constructor(props) {
     super(props);
+    //here we are assigning store.getState() to reduxState and then
+    //getting state and assigning it to state on author.js
+    const reduxState = store.getState()
     this.state = {
-      authorFirst: '',
-      authorLast: ''
+      authorFirst: reduxState.firstName,
+      authorLast: reduxState.lastName
     };
   }
 
@@ -24,6 +29,14 @@ class Author extends Component {
   }
   saveChanges() {
     // Send data to Redux state
+    store.dispatch({
+      type: FIRST_NAME,
+      payload: this.state.authorFirst
+    })
+    store.dispatch({
+      type: LAST_NAME,
+      payload: this.state.authorLast
+    })
   }
   render() {
     return (
