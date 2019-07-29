@@ -4,7 +4,10 @@ const initalState = {
     name: '',
     category: '',
     firstName: '',
-    lastName: ''
+    lastName: '',
+    ingredients: [],
+    instructions: [],
+    recipes: []
 
 }
 
@@ -12,6 +15,9 @@ export const UPDATE_NAME = 'UPDATE_NAME'
 export const UPDATE_CATEGORY = 'UPDATE_CATEGORY'
 export const FIRST_NAME = 'FIRST_NAME'
 export const LAST_NAME = 'LAST_NAME'
+export const ADD_INGREDIENT = 'ADD_INGREDIENT'
+export const ADD_INSTRUCTION = 'ADD_INSTRUCTION'
+export const ADD_RECIPE = 'ADD_RECIPE'
 
 
 //Now that our initial state is set up, let's build a basic reducer. 
@@ -32,6 +38,31 @@ function reducer(state = initalState, action){
             return {...state, firstName: payload}
         case LAST_NAME:
             return {...state, lastName: payload}
+        case ADD_INGREDIENT:
+            const newIngredients = [...state.ingredients, payload]
+            return {...state, ingredients: newIngredients}
+        case ADD_INSTRUCTION:
+            const newInstruction = [...state.instructions, payload]
+            return {...state, instructions: newInstruction}
+        case ADD_RECIPE:
+                const {
+                    name,
+                    category,
+                    firstName,
+                    lastName,
+                    ingredients,
+                    instructions
+                  } = state;
+                const recipe = {
+                    name,
+                    category,
+                    firstName,
+                    lastName,
+                    ingredients,
+                    instructions
+                }
+                const newRecipes = [...state.recipes, recipe]
+                return {...state, recipes: newRecipes}
         default:
             return state
     }
